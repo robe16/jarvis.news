@@ -1,0 +1,20 @@
+{
+    "service_id": "news",
+    "name_long": "News",
+    "name_short": "News",
+    "groups": [
+        "Info"
+    ],
+    "subservices": [],
+    "details": {
+        "newsapi_key": "0123456789abcdefghijklmnop",
+        "language": "en",
+        "country": "gb",
+        "sources": ["associated-press", "bbc-news", "engadget", "new-scientist", "the-verge"],
+        "categories": ["general", "science", "technology"]
+    },
+    "port": {
+        "broadcast": 1040,
+        "listener": [1071, 1072, 1073, 1074]
+    }
+}

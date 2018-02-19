@@ -16,15 +16,15 @@ class Nest():
     def get_news_headlines_sources(self):
         #
         _sources = ','.join(get_cfg_details_sources())
-        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_topheadlines,
-                                       query='sources={sources}'.format(sources=_sources))
+        uri = logDesc_newsapi_uri_topheadlines
+        query = 'sources={sources}'.format(sources=_sources)
         #
         data = self._newsapi.get_top_headlines(sources=_sources)
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
         log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                      'unknown')
         #
         if data['status'] == 'ok':
@@ -34,15 +34,15 @@ class Nest():
 
     def get_news_headlines_language(self):
         #
-        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_topheadlines,
-                                       query='language={language}'.format(language=get_cfg_details_language()))
+        uri = logDesc_newsapi_uri_topheadlines
+        query='language={language}'.format(language=get_cfg_details_language())
         #
         data = self._newsapi.get_top_headlines(language=get_cfg_details_language())
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
         log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                      'unknown')
         #
         if data['status'] == 'ok':
@@ -53,15 +53,15 @@ class Nest():
 
     def get_news_headlines_country(self):
         #
-        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_topheadlines,
-                                       query='country={country}'.format(country=get_cfg_details_country()))
+        uri = logDesc_newsapi_uri_topheadlines
+        query = 'country={country}'.format(country=get_cfg_details_country())
         #
         data = self._newsapi.get_top_headlines(country=get_cfg_details_country())
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
         log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                      'unknown')
         #
         if data['status'] == 'ok':
@@ -76,8 +76,8 @@ class Nest():
         #
         for category in get_cfg_details_categories():
             #
-            _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_topheadlines,
-                                           query='category={category}'.format(category=category))
+            uri = logDesc_newsapi_uri_topheadlines
+            query = 'category={category}'.format(category=category)
             #
             data_cat = self._newsapi.get_top_headlines(category=category,
                                                        country=get_cfg_details_country())
@@ -85,7 +85,7 @@ class Nest():
             result = logPass if data_cat['status'] == 'ok' else logFail
             #
             log_outbound(result,
-                         logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                         logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                          'unknown')
             #
             if data_cat['status'] == 'ok':
@@ -97,17 +97,34 @@ class Nest():
         else:
             return False
 
+    def get_sources(self):
+        #
+        uri = logDesc_newsapi_uri_sources
+        #
+        data = self._newsapi.get_sources()
+        #
+        result = logPass if data['status'] == 'ok' else logFail
+        #
+        log_outbound(result,
+                     logDesc_newsapi_url_base, '', 'GET', uri, '-', '-',
+                     'unknown')
+        #
+        if data['status'] == 'ok':
+            return {'sources': self.create_source_json(data['sources'])}
+        else:
+            return False
+
     def get_sources_language(self):
         #
-        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
-                                       query='language={language}'.format(language=get_cfg_details_language()))
+        uri = logDesc_newsapi_uri_sources
+        query = 'language={language}'.format(language=get_cfg_details_language())
         #
         data = self._newsapi.get_sources(language=get_cfg_details_language())
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
         log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                      'unknown')
         #
         if data['status'] == 'ok':
@@ -117,15 +134,15 @@ class Nest():
 
     def get_sources_country(self):
         #
-        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
-                                       query='country={country}'.format(country=get_cfg_details_country()))
+        uri = logDesc_newsapi_uri_sources
+        query ='country={country}'.format(country=get_cfg_details_country())
         #
         data = self._newsapi.get_sources(country=get_cfg_details_country())
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
         log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                      'unknown')
         #
         if data['status'] == 'ok':
@@ -139,8 +156,8 @@ class Nest():
         #
         for category in get_cfg_details_categories():
             #
-            _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
-                                           query='category={category}'.format(category=category))
+            uri = logDesc_newsapi_uri_sources
+            query = 'category={category}'.format(category=category)
             #
             data_cat = self._newsapi.get_top_headlines(category=category,
                                                        country=get_cfg_details_country())
@@ -148,7 +165,7 @@ class Nest():
             result = logPass if data_cat['status'] == 'ok' else logFail
             #
             log_outbound(result,
-                         logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                         logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
                          'unknown')
             #
             if data_cat['status'] == 'ok':

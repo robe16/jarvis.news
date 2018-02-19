@@ -109,7 +109,7 @@ def start_bottle(port_threads):
             raise HTTPError(status)
 
     ################################################################################################
-    # All data
+    # Headlines
     ################################################################################################
 
     @get(uri_get_news_headlines)
@@ -127,6 +127,54 @@ def start_bottle(port_threads):
                 data = _newsapi.get_news_headlines_country()
             elif option == 'language':
                 data = _newsapi.get_news_headlines_language()
+            else:
+                data = False
+            #
+            if not bool(data):
+                status = httpStatusFailure
+                args['result'] = logFail
+            else:
+                status = httpStatusSuccess
+                args['result'] = logPass
+            #
+            args['http_response_code'] = status
+            args['description'] = '-'
+            log_inbound(**args)
+            #
+            if isinstance(data, bool):
+                return HTTPResponse(status=status)
+            else:
+                return HTTPResponse(body=data, status=status)
+            #
+        except Exception as e:
+            #
+            status = httpStatusServererror
+            #
+            args['result'] = logException
+            args['http_response_code'] = status
+            args['description'] = '-'
+            args['exception'] = e
+            log_inbound(**args)
+            #
+            raise HTTPError(status)
+
+    ################################################################################################
+    # Sources
+    ################################################################################################
+
+    @get(uri_get_news_sources)
+    def get_headlines(option):
+        #
+        args = _get_log_args(request)
+        #
+        try:
+            #
+            if option == 'categories':
+                data = _newsapi.get_sources_categories()
+            elif option == 'country':
+                data = _newsapi.get_sources_country()
+            elif option == 'language':
+                data = _newsapi.get_sources_language()
             else:
                 data = False
             #

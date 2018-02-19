@@ -46,7 +46,8 @@ class Nest():
                      'unknown')
         #
         if data['status'] == 'ok':
-            return {'articles': data['articles']}
+            return {'articles': data['articles'],
+                    'sources': self.get_sources_language()['sources']}
         else:
             return False
 
@@ -64,7 +65,8 @@ class Nest():
                      'unknown')
         #
         if data['status'] == 'ok':
-            return {'articles': data['articles']}
+            return {'articles': data['articles'],
+                    'sources': self.get_sources_country()['sources']}
         else:
             return False
 
@@ -90,6 +92,78 @@ class Nest():
                 data = data + data_cat['articles']
         #
         if len(data):
-            return {'articles': data}
+            return {'articles': data,
+                    'sources': self.get_sources_categories()['sources']}
         else:
             return False
+
+    def get_sources_language(self):
+        #
+        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
+                                       query='language={language}'.format(language=get_cfg_details_language()))
+        #
+        data = self._newsapi.get_sources(language=get_cfg_details_language())
+        #
+        result = logPass if data['status'] == 'ok' else logFail
+        #
+        log_outbound(result,
+                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     'unknown')
+        #
+        if data['status'] == 'ok':
+            return {'sources': self.create_source_json(data['sources'])}
+        else:
+            return False
+
+    def get_sources_country(self):
+        #
+        _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
+                                       query='country={country}'.format(country=get_cfg_details_country()))
+        #
+        data = self._newsapi.get_sources(country=get_cfg_details_country())
+        #
+        result = logPass if data['status'] == 'ok' else logFail
+        #
+        log_outbound(result,
+                     logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                     'unknown')
+        #
+        if data['status'] == 'ok':
+            return {'sources': self.create_source_json(data['sources'])}
+        else:
+            return False
+
+    def get_sources_categories(self):
+        #
+        _sources = []
+        #
+        for category in get_cfg_details_categories():
+            #
+            _uri = '/{uri}?{query}'.format(uri=logDesc_newsapi_uri_sources,
+                                           query='category={category}'.format(category=category))
+            #
+            data_cat = self._newsapi.get_top_headlines(category=category,
+                                                       country=get_cfg_details_country())
+            #
+            result = logPass if data_cat['status'] == 'ok' else logFail
+            #
+            log_outbound(result,
+                         logDesc_newsapi_url_base, '', 'GET', _uri, '-', '-',
+                         'unknown')
+            #
+            if data_cat['status'] == 'ok':
+                _sources = _sources + data_cat['sources']
+        #
+        if len(_sources):
+            return {'sources': self.create_source_json(_sources)}
+        else:
+            return False
+
+    def create_source_json(self, sources):
+        #
+        _sources = {}
+        #
+        for source in sources:
+            _sources[source['id']] = source
+        #
+        return _sources

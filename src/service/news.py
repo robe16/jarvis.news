@@ -7,7 +7,7 @@ from resources.global_resources.log_vars import logPass, logFail, logException
 from resources.lang.enGB.logs import *
 
 
-class Nest():
+class News():
 
     def __init__(self):
         #

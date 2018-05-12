@@ -13,7 +13,7 @@ from resources.global_resources.exposed_apis import *
 from resources.global_resources.log_vars import logPass, logFail, logException
 from resources.global_resources.variables import *
 from resources.lang.enGB.logs import *
-from service.news import Nest
+from service.news import News
 
 
 def start_bottle(port_threads):
@@ -22,7 +22,7 @@ def start_bottle(port_threads):
     # Create device
     ################################################################################################
 
-    _newsapi = Nest()
+    _newsapi = News()
 
     log_internal(logPass, logDescDeviceObjectCreation, description='success')
 

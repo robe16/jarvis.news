@@ -28,7 +28,8 @@ class News():
                      'unknown')
         #
         if data['status'] == 'ok':
-            return {'articles': data['articles']}
+            return {'articles': data['articles'],
+                    'sources': self.get_sources()['sources']}
         else:
             return False
 

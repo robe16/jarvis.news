@@ -1,14 +1,11 @@
 import threading
 
-from bottle import HTTPError
 from bottle import get
-from bottle import request, run, HTTPResponse
+from bottle import request, run
 
 from config.config import get_cfg_port_listener
 from log.log import log_inbound, log_internal
-from resources.global_resources.exposed_apis import *
-from resources.global_resources.log_vars import logPass, logFail, logException
-from resources.global_resources.variables import *
+from resources.global_resources.log_vars import logPass
 from resources.lang.enGB.logs import *
 from service.news import News
 

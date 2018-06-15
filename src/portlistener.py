@@ -9,9 +9,9 @@ from resources.global_resources.log_vars import logPass
 from resources.lang.enGB.logs import *
 from service.news import News
 
-from apis.uri_config import get_config
-from apis.uri_get_headlines import get_headlines
-from apis.uri_get_sources import get_sources
+from apis.get_config import get_config
+from apis.get_headlines import get_headlines
+from apis.get_sources import get_sources
 
 
 def start_bottle(port_threads):

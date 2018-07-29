@@ -7,7 +7,6 @@ from discovery.broadcast import broadcast_service
 from log.log import log_internal
 from portlistener import start_bottle
 
-port_threads = []
 
 try:
 
@@ -26,7 +25,7 @@ try:
 
     log_internal(logPass, logDescPortListener.format(port=get_cfg_port_listener()), description='starting')
 
-    start_bottle(port_threads)
+    start_bottle()
 
     process_broadcast.terminate()
 
@@ -34,5 +33,3 @@ try:
 
 except Exception as e:
     log_internal(logException, logDescStartingService, description='fail', exception=e)
-    for t in port_threads:
-        t._stop()

@@ -14,7 +14,7 @@
         "categories": ["general", "science", "technology"]
     },
     "port": {
-        "broadcast": 1040,
-        "listener": [1071, 1072, 1073, 1074]
+        "broadcast": 1070,
+        "listener": 1071
     }
 }

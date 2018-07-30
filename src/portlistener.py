@@ -1,7 +1,7 @@
 from bottle import request, run, route
 
 from config.config import get_cfg_port
-from common_functions.request_enable_cors import enable_cors
+from common_functions.request_enable_cors import enable_cors, response_options
 from log.log import log_internal
 from resources.global_resources.log_vars import logPass
 from resources.lang.enGB.logs import *
@@ -28,7 +28,10 @@ def start_bottle():
 
     @route('/config', method=['OPTIONS', 'GET'])
     def api_get_config():
-        response = get_config(request)
+        if request.method == 'OPTIONS':
+            response = response_options()
+        else:
+            response = get_config(request)
         return enable_cors(response)
 
     @route('/news/headlines/<option>', method=['OPTIONS', 'GET'])

@@ -36,12 +36,18 @@ def start_bottle():
 
     @route('/news/headlines/<option>', method=['OPTIONS', 'GET'])
     def api_get_headlines(option):
-        response = get_headlines(request, _newsapi, option)
+        if request.method == 'OPTIONS':
+            response = response_options()
+        else:
+            response = get_headlines(request, _newsapi, option)
         return enable_cors(response)
 
     @route('/news/sources/<option>', method=['OPTIONS', 'GET'])
     def api_get_sources(option):
-        response = get_sources(request, _newsapi, option)
+        if request.method == 'OPTIONS':
+            response = response_options()
+        else:
+            response = get_sources(request, _newsapi, option)
         return enable_cors(response)
 
     ################################################################################################

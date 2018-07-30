@@ -1,7 +1,7 @@
 from bottle import get
 from bottle import request, run
 
-from config.config import get_cfg_port_listener
+from config.config import get_cfg_port
 from log.log import log_internal
 from resources.global_resources.log_vars import logPass
 from resources.lang.enGB.logs import *
@@ -40,8 +40,8 @@ def start_bottle():
 
     ################################################################################################
 
-    host = 'localhost'
-    port = get_cfg_port_listener()
+    host = '127.0.0.1'
+    port = get_cfg_port()
     run(host=host, port=port, server='paste', debug=True)
 
     log_internal(logPass, logDescPortListener.format(port=port), description='started')

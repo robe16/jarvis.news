@@ -13,8 +13,5 @@
         "sources": ["associated-press", "bbc-news", "engadget", "new-scientist", "the-verge"],
         "categories": ["general", "science", "technology"]
     },
-    "port": {
-        "broadcast": 1070,
-        "listener": 1071
-    }
+    "port": 1070
 }

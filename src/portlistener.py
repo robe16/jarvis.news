@@ -1,5 +1,4 @@
-from bottle import get
-from bottle import request, run
+from bottle import request, run, route
 
 from config.config import get_cfg_port
 from common_functions.request_enable_cors import enable_cors
@@ -27,17 +26,17 @@ def start_bottle():
     # APIs
     ################################################################################################
 
-    @get('/config')
+    @route('/config', method=['OPTIONS', 'GET'])
     def api_get_config():
         response = get_config(request)
         return enable_cors(response)
 
-    @get('/news/headlines/<option>')
+    @route('/news/headlines/<option>', method=['OPTIONS', 'GET'])
     def api_get_headlines(option):
         response = get_headlines(request, _newsapi, option)
         return enable_cors(response)
 
-    @get('/news/sources/<option>')
+    @route('/news/sources/<option>', method=['OPTIONS', 'GET'])
     def api_get_sources(option):
         response = get_sources(request, _newsapi, option)
         return enable_cors(response)

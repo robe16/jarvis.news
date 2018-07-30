@@ -12,4 +12,4 @@ def enable_cors(response):
 def response_options():
     response = HTTPResponse()
     response.status = httpStatusSuccess
-    return response
+    return enable_cors(response)

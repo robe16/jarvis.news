@@ -1,4 +1,4 @@
-from bottle import request, run, route
+from bottle import request, run, route, get
 
 from config.config import get_cfg_port
 from common_functions.request_enable_cors import enable_cors, response_options
@@ -26,29 +26,23 @@ def start_bottle():
     # APIs
     ################################################################################################
 
-    @route('/config', method=['OPTIONS', 'GET'])
+    @route('/config', method=['OPTIONS'])
+    @route('/news/headlines/<option>', method=['OPTIONS'])
+    @route('/news/sources/<option>', method=['OPTIONS'])
+    def api_cors_options():
+        return response_options()
+
+    @get('/config')
     def api_get_config():
-        if request.method == 'OPTIONS':
-            response = response_options()
-        else:
-            response = get_config(request)
-        return enable_cors(response)
+        return get_config(request)
 
-    @route('/news/headlines/<option>', method=['OPTIONS', 'GET'])
+    @get('/news/headlines/<option>')
     def api_get_headlines(option):
-        if request.method == 'OPTIONS':
-            response = response_options()
-        else:
-            response = get_headlines(request, _newsapi, option)
-        return enable_cors(response)
+        return get_headlines(request, _newsapi, option)
 
-    @route('/news/sources/<option>', method=['OPTIONS', 'GET'])
+    @get('/news/sources/<option>')
     def api_get_sources(option):
-        if request.method == 'OPTIONS':
-            response = response_options()
-        else:
-            response = get_sources(request, _newsapi, option)
-        return enable_cors(response)
+        return get_sources(request, _newsapi, option)
 
     ################################################################################################
 

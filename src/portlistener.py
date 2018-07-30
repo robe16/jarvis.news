@@ -40,7 +40,7 @@ def start_bottle():
 
     ################################################################################################
 
-    host = '127.0.0.1'
+    host = 'localhost'
     port = get_cfg_port()
     run(host=host, port=port, server='paste', debug=True)
 

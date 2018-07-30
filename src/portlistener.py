@@ -29,7 +29,7 @@ def start_bottle():
     @route('/config', method=['OPTIONS'])
     @route('/news/headlines/<option>', method=['OPTIONS'])
     @route('/news/sources/<option>', method=['OPTIONS'])
-    def api_cors_options():
+    def api_cors_options(**kwargs):
         return response_options()
 
     @get('/config')

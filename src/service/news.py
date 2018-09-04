@@ -1,9 +1,10 @@
 from newsapi import NewsApiClient
+from datetime import datetime
 
+import cache
 from config.config import get_cfg_details_newsapiKey
 from config.config import get_cfg_details_language, get_cfg_details_country, get_cfg_details_sources, get_cfg_details_categories
-from log.log import log_outbound, log_internal
-from resources.global_resources.log_vars import logPass, logFail, logException
+from resources.global_resources.log_vars import logPass, logFail
 from resources.lang.enGB.logs import *
 
 
@@ -23,9 +24,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': query,
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'articles': data['articles'],
@@ -42,9 +50,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': query,
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'articles': data['articles'],
@@ -61,9 +76,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': query,
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'articles': data['articles'],
@@ -85,9 +107,16 @@ class News():
             #
             result = logPass if data_cat['status'] == 'ok' else logFail
             #
-            log_outbound(result,
-                         logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                         'unknown')
+            cache.logQ.put({'timestamp': datetime.now(),
+                            'process': 'outbound', 'result': result,
+                            'service_ip': logDesc_newsapi_url_base,
+                            'service_port': '',
+                            'service_method': 'GET',
+                            'service_request_uri': uri,
+                            'service_request_query': query,
+                            'service_request_body': '-',
+                            'http_response_code': 'unknown',
+                            'description': '-'})
             #
             if data_cat['status'] == 'ok':
                 data = data + data_cat['articles']
@@ -106,9 +135,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, '-', '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': '-',
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'sources': self.create_source_json(data['sources'])}
@@ -124,9 +160,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': query,
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'sources': self.create_source_json(data['sources'])}
@@ -142,9 +185,16 @@ class News():
         #
         result = logPass if data['status'] == 'ok' else logFail
         #
-        log_outbound(result,
-                     logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                     'unknown')
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'outbound', 'result': result,
+                        'service_ip': logDesc_newsapi_url_base,
+                        'service_port': '',
+                        'service_method': 'GET',
+                        'service_request_uri': uri,
+                        'service_request_query': query,
+                        'service_request_body': '-',
+                        'http_response_code': 'unknown',
+                        'description': '-'})
         #
         if data['status'] == 'ok':
             return {'sources': self.create_source_json(data['sources'])}
@@ -165,9 +215,16 @@ class News():
             #
             result = logPass if data_cat['status'] == 'ok' else logFail
             #
-            log_outbound(result,
-                         logDesc_newsapi_url_base, '', 'GET', uri, query, '-',
-                         'unknown')
+            cache.logQ.put({'timestamp': datetime.now(),
+                            'process': 'outbound', 'result': result,
+                            'service_ip': logDesc_newsapi_url_base,
+                            'service_port': '',
+                            'service_method': 'GET',
+                            'service_request_uri': uri,
+                            'service_request_query': query,
+                            'service_request_body': '-',
+                            'http_response_code': 'unknown',
+                            'description': '-'})
             #
             if data_cat['status'] == 'ok':
                 _sources = _sources + data_cat['sources']

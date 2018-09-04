@@ -1,7 +1,8 @@
 from socket import socket, AF_INET, SOCK_DGRAM, SOL_SOCKET, SO_BROADCAST
 from time import sleep
+from datetime import datetime
 
-from log.log import log_internal
+import cache
 from parameters import broadcast_frequency
 from resources.lang.enGB.logs import *
 from resources.global_resources.broadcast import *
@@ -21,7 +22,9 @@ def broadcast_service(service_id, self_port):
             sleep(broadcast_frequency)
         #
     except Exception as e:
-        log_internal(logException, logDesc_services_Broadcast, exception=e)
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'internal', 'result': logException,
+                        'description': logDesc_services_Broadcast, 'exception': e})
 
 
 def broadcast_msg(msg):
@@ -35,6 +38,7 @@ def broadcast_msg(msg):
         return True
         #
     except Exception as e:
-        #
-        log_internal(logException, logDesc_Broadcast, exception=e)
+        cache.logQ.put({'timestamp': datetime.now(),
+                        'process': 'internal', 'result': logException,
+                        'description': logDesc_Broadcast, 'exception': e})
         return False

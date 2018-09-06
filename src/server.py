@@ -6,23 +6,12 @@ from config.config import get_cfg_port
 from common_functions.request_enable_cors import enable_cors, response_options
 from resources.global_resources.log_vars import logPass
 from resources.lang.enGB.logs import *
-from service.news import News
 from apis.get_config import get_config
 from apis.get_headlines import get_headlines
 from apis.get_sources import get_sources
 
 
-def start_bottle():
-
-    ################################################################################################
-    # Create device
-    ################################################################################################
-
-    _newsapi = News()
-
-    cache.logQ.put({'timestamp': datetime.now(),
-                    'process': 'internal', 'result': logPass,
-                    'operation': logDescDeviceObjectCreation, 'description': 'success'})
+def start_server():
 
     ################################################################################################
     # APIs
@@ -41,12 +30,12 @@ def start_bottle():
 
     @get('/news/headlines/<option>')
     def api_get_headlines(option):
-        response = get_headlines(request, _newsapi, option)
+        response = get_headlines(request, option)
         return enable_cors(response)
 
     @get('/news/sources/<option>')
     def api_get_sources(option):
-        response = get_sources(request, _newsapi, option)
+        response = get_sources(request, option)
         return enable_cors(response)
 
     ################################################################################################

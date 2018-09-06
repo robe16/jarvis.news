@@ -7,7 +7,7 @@ from resources.global_resources.log_vars import logPass, logFail, logException
 from resources.global_resources.variables import *
 
 
-def get_sources(request, _newsapi, option):
+def get_sources(request, option):
     #
     args = get_request_log_args(request)
     args['timestamp'] = datetime.now()
@@ -15,12 +15,14 @@ def get_sources(request, _newsapi, option):
     #
     try:
         #
+        data = {}
+        #
         if option == 'categories':
-            data = _newsapi.get_sources_categories()
+            data['sources'] = cache.cache['sources']['categories']
         elif option == 'country':
-            data = _newsapi.get_sources_country()
+            data['sources'] = cache.cache['sources']['country']
         elif option == 'language':
-            data = _newsapi.get_sources_language()
+            data['sources'] = cache.cache['sources']['language']
         else:
             data = False
         #

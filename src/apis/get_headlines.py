@@ -7,7 +7,7 @@ from resources.global_resources.log_vars import logPass, logFail, logException
 from resources.global_resources.variables import *
 
 
-def get_headlines(request, _newsapi, option):
+def get_headlines(request, option):
     #
     args = get_request_log_args(request)
     args['timestamp'] = datetime.now()
@@ -15,14 +15,20 @@ def get_headlines(request, _newsapi, option):
     #
     try:
         #
+        data = {}
+        #
         if option == 'sources':
-            data = _newsapi.get_news_headlines_sources()
+            data['articles'] = cache.cache['headlines']['sources']
+            data['sources'] = cache.cache['sources']['all']
         elif option == 'categories':
-            data = _newsapi.get_news_headlines_categories()
+            data['articles'] = cache.cache['headlines']['categories']
+            data['sources'] = cache.cache['sources']['categories']
         elif option == 'country':
-            data = _newsapi.get_news_headlines_country()
+            data['articles'] = cache.cache['headlines']['country']
+            data['sources'] = cache.cache['sources']['country']
         elif option == 'language':
-            data = _newsapi.get_news_headlines_language()
+            data['articles'] = cache.cache['headlines']['language']
+            data['sources'] = cache.cache['sources']['language']
         else:
             data = False
         #

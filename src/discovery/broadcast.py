@@ -3,11 +3,12 @@ from time import sleep
 from datetime import datetime
 
 import cache
-from parameters import broadcast_frequency
 from resources.lang.enGB.logs import *
 from resources.global_resources.broadcast import *
 from resources.global_resources.variables import serviceType
 from resources.global_resources.log_vars import logException
+
+broadcast_frequency = 30  # seconds
 
 
 def broadcast_service(service_id, self_port):

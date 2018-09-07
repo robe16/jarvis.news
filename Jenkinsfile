@@ -1,14 +1,12 @@
 echo "Running Build ID: ${env.BUILD_ID}"
 
-string serviceType  = "webserver"
+string serviceType  = "news"
 
 docker_volumes      = ["-v /etc/ssl/certs:/etc/ssl/certs",
                       "-v ${params.fileConfig}:/jarvis/${serviceType}/config/config.json",
                       "-v ${params.folderLog}:/jarvis/${serviceType}/log/logfiles/"].join(" ")
 
 deployLogin         = "${env.deploymentServerLogin_jarvisServer01}"
-
-echo "Here is the deployLogin parameter: ${deployLogin}"
 
 node {
 

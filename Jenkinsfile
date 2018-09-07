@@ -13,6 +13,7 @@ node {
     deleteDir()
 
     stage('checkout') {
+        echo "https://github.com/robe16/jarvis.${serviceType}.git"
         git "https://github.com/robe16/jarvis.${serviceType}.git"
     }
     //
@@ -25,6 +26,7 @@ node {
         //        image 'resin/rpi-raspbian:latest'
         //    }
         //}
+        //
         try {sh "docker image rm ${docker_img_name_latest}"} catch (error) {}
         sh "docker build -t ${docker_img_name_build_id} ."
         sh "docker tag ${docker_img_name_build_id} ${docker_img_name_latest}"

@@ -21,12 +21,6 @@ node {
     docker_img_name_latest = "${params.serviceID}:latest"
     //
     stage('build') {
-        //agent {
-        //    docker {
-        //        image 'resin/rpi-raspbian:latest'
-        //    }
-        //}
-        //
         try {sh "docker image rm ${docker_img_name_latest}"} catch (error) {}
         sh "docker build -t ${docker_img_name_build_id} ."
         sh "docker tag ${docker_img_name_build_id} ${docker_img_name_latest}"

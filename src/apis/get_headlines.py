@@ -19,7 +19,7 @@ def get_headlines(request, option):
         #
         if option == 'sources':
             data['articles'] = cache.cache['headlines']['sources']
-            data['sources'] = cache.cache['sources']['all']
+            data['sources'] = cache.cache['sources']['sources']
         elif option == 'categories':
             data['articles'] = cache.cache['headlines']['categories']
             data['sources'] = cache.cache['sources']['categories']

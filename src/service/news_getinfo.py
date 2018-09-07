@@ -1,6 +1,7 @@
 import cache
 from newsapi import NewsApiClient
-from config.config import get_cfg_details_newsapiKey, get_cfg_details_categories, get_cfg_details_language, get_cfg_details_country
+from config.config import get_cfg_details_newsapiKey
+from config.config import get_cfg_details_sources, get_cfg_details_categories, get_cfg_details_language, get_cfg_details_country
 
 
 _newsapi = NewsApiClient(api_key=get_cfg_details_newsapiKey())
@@ -8,17 +9,29 @@ _newsapi = NewsApiClient(api_key=get_cfg_details_newsapiKey())
 
 def cache_sources():
     cache.cache['sources'] = {}
-    get_sources_all()
+    get_sources_for_sources()
     get_sources_for_categories()
     get_sources_for_language()
     get_sources_for_country()
 
 
-def get_sources_all():
+def get_sources_for_sources():
+    #
+    sources = {}
+    all_sources = _get_sources_all()
+    #
+    for src in all_sources:
+        if src in get_cfg_details_sources():
+            sources[src] = src
+    #
+    cache.cache['sources']['sources'] = sources
+
+
+def _get_sources_all():
     #
     sources = _newsapi.get_sources()
     #
-    cache.cache['sources']['all'] = create_source_json(sources)
+    return create_source_json(sources)
 
 
 def get_sources_for_categories():
@@ -26,12 +39,12 @@ def get_sources_for_categories():
     sources = {}
     #
     for cat in get_cfg_details_categories():
-        sources[cat] = get_sources_for_category(cat)
+        sources[cat] = _get_sources_for_category(cat)
     #
     cache.cache['sources']['categories'] = sources
 
 
-def get_sources_for_category(category):
+def _get_sources_for_category(category):
     #
     sources = _newsapi.get_sources(category=category)
     #

@@ -1,4 +1,4 @@
-from bottle import request, run, route, get
+from bottle import request, run, route, get, post
 from datetime import datetime
 
 import cache
@@ -9,6 +9,9 @@ from resources.lang.enGB.logs import *
 from apis.get_config import get_config
 from apis.get_headlines import get_headlines
 from apis.get_sources import get_sources
+from apis.get_news_config_html import get_news_config_html
+from apis.get_news_config_js import get_news_config_js
+from apis.post_news_config_update import post_news_config_update
 
 
 def start_server():
@@ -36,6 +39,21 @@ def start_server():
     @get('/news/sources/<option>')
     def api_get_sources(option):
         response = get_sources(request, option)
+        return enable_cors(response)
+
+    @get('/news/config.html')
+    def api_get_news_config_html():
+        response = get_news_config_html(request)
+        return enable_cors(response)
+
+    @get('/news/config.js')
+    def api_get_news_config_js():
+        response = get_news_config_js(request)
+        return enable_cors(response)
+
+    @post('/news/config/update')
+    def api_post_news_config_update():
+        response = post_news_config_update(request)
         return enable_cors(response)
 
     ################################################################################################

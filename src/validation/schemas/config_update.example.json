@@ -1,0 +1,15 @@
+{
+  "language": "en",
+  "sources": [
+    "associated-press",
+    "bbc-news",
+    "engadget",
+    "new-scientist",
+    "the-verge"
+  ],
+  "country": "gb",
+  "categories": [
+    "general",
+    "technology"
+  ]
+}

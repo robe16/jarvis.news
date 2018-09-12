@@ -79,20 +79,52 @@ def get_cfg_details_newsapiKey():
     return get_cfg_details()['newsapi_key']
 
 
+def set_cfg_details_updates(language, country, sources, categories):
+    r = set_cfg_details_language(language)
+    r = r and set_cfg_details_country(country)
+    r = r and set_cfg_details_sources(sources)
+    r = r and set_cfg_details_categories(categories)
+    return r
+
+
 def get_cfg_details_language():
     return get_cfg_details()['language']
+
+
+def set_cfg_details_language(language):
+    data = get_config_json()
+    data['details']['language'] = language
+    return write_config(data)
 
 
 def get_cfg_details_country():
     return get_cfg_details()['country']
 
 
+def set_cfg_details_country(country):
+    data = get_config_json()
+    data['details']['country'] = country
+    return write_config(data)
+
+
 def get_cfg_details_sources():
     return get_cfg_details()['sources']
 
 
+def set_cfg_details_sources(sources):
+    data = get_config_json()
+    data['details']['sources'] = sources
+    return write_config(data)
+
+
 def get_cfg_details_categories():
     return get_cfg_details()['categories']
+
+
+def set_cfg_details_categories(categories):
+    data = get_config_json()
+    data['details']['categories'] = categories
+    return write_config(data)
 
 
 def get_cfg_port():

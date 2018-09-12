@@ -18,7 +18,7 @@ def cache_sources():
 def get_sources_for_sources():
     #
     sources = {}
-    all_sources = _get_sources_all()
+    all_sources = get_sources_all()
     #
     for src in all_sources:
         if src in get_cfg_details_sources():
@@ -27,7 +27,7 @@ def get_sources_for_sources():
     cache.cache['sources']['sources'] = sources
 
 
-def _get_sources_all():
+def get_sources_all():
     #
     sources = _newsapi.get_sources()
     #

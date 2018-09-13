@@ -1,4 +1,5 @@
 requests
 bottle
+jsonschema
 Paste
 newsapi-python

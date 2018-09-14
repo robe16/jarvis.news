@@ -20,7 +20,13 @@ def get_config(request):
                 'name_long': get_cfg_name_long(),
                 'name_short': get_cfg_name_short(),
                 'subservices': get_cfg_subservices(),
-                'groups': get_cfg_groups()}
+                'groups': get_cfg_groups(),
+                'ui_links': [
+                    {'label': 'Configuration',
+                     'description': 'Update configuration for categories, countries, language and sources.',
+                     'uri': '/news/config.html'}
+                    ]
+                }
         #
         status = httpStatusSuccess
         #
